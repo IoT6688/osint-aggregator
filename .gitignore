@@ -1,0 +1,22 @@
+# Môi trường ảo Python — mỗi người tự tạo lại bằng `pip install -r requirements.txt`,
+# không nên đẩy lên GitHub (nặng, không cần thiết, khác nhau giữa các máy).
+venv/
+env/
+.venv/
+
+# File biên dịch Python
+__pycache__/
+*.pyc
+
+# Database cache SQLite được tạo tự động khi chạy app — không phải mã nguồn.
+osint_cache.db
+*.db
+
+# Biến môi trường / API key riêng tư (nếu sau này bạn thêm file .env)
+.env
+
+# Rác của IDE / hệ điều hành
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

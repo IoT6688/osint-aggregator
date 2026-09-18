@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSINT Aggregator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!--
+        Bố cục trang:
+        1. .masthead      -> tiêu đề, giống trang bìa hồ sơ
+        2. .intake        -> "form" nhập liệu, giống tờ khai case-intake
+        3. #results       -> mỗi kết quả connector = 1 "hồ sơ con" (.file-card)
+
+        Muốn thêm 1 khối thông tin tĩnh (vd: hướng dẫn, ghi chú pháp lý)?
+        Thêm 1 <section class="panel"> mới là đủ, style đã có sẵn.
+    -->
+
+    <div class="desk">
+
+        <header class="masthead">
+            <div class="masthead-title">
+                <h1>OSINT Aggregator</h1>
+                <p class="masthead-tagline">
+                    Công cụ tổng hợp dữ liệu công khai. Hệ thống thu thập —
+                    bạn là người phân tích và kết luận.
+                </p>
+            </div>
+            <div class="masthead-ref">
+                <span class="ref-label">REF//</span>
+                <span id="ref-code">PUBLIC-SOURCE-INTEL</span>
+            </div>
+        </header>
+
+        <section class="panel intake">
+            <!-- Tab danh mục được sinh động từ /api/categories, xem app.js -->
+            <div id="category-tabs" class="tabs" role="tablist" aria-label="Loại thông tin">
+                <span class="tabs-loading">Đang tải danh mục…</span>
+            </div>
+
+            <form id="search-form" class="intake-form">
+                <div class="intake-field">
+                    <label for="target-input">Subject</label>
+                    <input
+                        type="text"
+                        id="target-input"
+                        name="target"
+                        autocomplete="off"
+                        placeholder="example.com"
+                        required
+                    >
+                </div>
+                <button type="submit" id="submit-btn">Run search</button>
+            </form>
+
+            <p id="status-message" class="status-message" role="status"></p>
+        </section>
+
+        <section id="results" class="results" aria-live="polite">
+            <!-- .file-card được app.js chèn động vào đây, mỗi connector 1 card -->
+        </section>
+
+        <section id="empty-state" class="empty-state">
+            <p>Chưa có hồ sơ nào được mở.</p>
+            <p class="empty-state-sub">Chọn loại thông tin, nhập subject, và bấm "Run search".</p>
+        </section>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

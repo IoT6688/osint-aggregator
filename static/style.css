@@ -1,0 +1,356 @@
+/* =========================================================================
+   OSINT AGGREGATOR — design tokens
+   Chủ đề: "bàn làm việc điều tra viên" — kết quả mỗi connector là 1 hồ sơ
+   giấy (file-card) đặt trên nền bàn tối. Con dấu (.stamp) thể hiện trạng thái.
+
+   MUỐN ĐỔI MÀU / FONT TOÀN BỘ TRANG? Chỉ cần sửa các biến trong :root này.
+   Không cần đụng vào phần còn lại của file.
+   ========================================================================= */
+
+:root {
+    /* Nền "bàn làm việc" */
+    --ink-950: #14171c;
+    --ink-900: #1a1e24;
+    --line-dim: #33393f;
+
+    /* Giấy hồ sơ */
+    --paper-100: #e9e2cc;
+    --paper-50: #f5f0e2;
+    --ink-on-paper: #26241d;
+    --ink-on-paper-dim: #635e4d;
+
+    /* Con dấu trạng thái */
+    --stamp-ok: #3f6e63;
+    --stamp-error: #9c3b2c;
+    --stamp-pending: #a67c2e;
+
+    /* Điểm nhấn (đồng/brass) */
+    --brass: #b08d57;
+    --brass-dim: #7c6a49;
+
+    /* Typography */
+    --font-display: "Fraunces", Georgia, serif;
+    --font-body: "IBM Plex Sans", -apple-system, sans-serif;
+    --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+
+    --radius-card: 3px;
+}
+
+/* =========================================================================
+   RESET / BASE
+   ========================================================================= */
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--ink-950);
+    background-image:
+        radial-gradient(circle at 15% 0%, rgba(176, 141, 87, 0.06), transparent 45%);
+    color: var(--paper-50);
+    font-family: var(--font-body);
+    line-height: 1.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+:focus-visible {
+    outline: 2px solid var(--brass);
+    outline-offset: 2px;
+}
+
+.desk {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 56px 24px 96px;
+}
+
+/* =========================================================================
+   MASTHEAD
+   ========================================================================= */
+
+.masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    padding-bottom: 20px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid var(--line-dim);
+    flex-wrap: wrap;
+}
+
+.masthead-title h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(28px, 4vw, 38px);
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+}
+
+.masthead-tagline {
+    margin: 0;
+    max-width: 46ch;
+    color: #c7c2b3;
+    font-size: 14.5px;
+}
+
+.masthead-ref {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--brass);
+    text-align: right;
+    white-space: nowrap;
+}
+
+.ref-label {
+    color: var(--brass-dim);
+    margin-right: 4px;
+}
+
+/* =========================================================================
+   INTAKE PANEL (form nhập liệu)
+   ========================================================================= */
+
+.panel {
+    background: var(--paper-100);
+    border-radius: var(--radius-card);
+    color: var(--ink-on-paper);
+}
+
+.intake {
+    padding: 0 24px 22px;
+    box-shadow: 0 14px 30px -18px rgba(0, 0, 0, 0.55);
+}
+
+/* Tab danh mục: trông như tab của cặp hồ sơ, "gắn" vào mép trên panel giấy */
+.tabs {
+    display: flex;
+    gap: 4px;
+    transform: translateY(-1px);
+}
+
+.tab-btn {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    background: var(--ink-900);
+    color: #9aa0a8;
+    border: 1px solid var(--line-dim);
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    padding: 9px 16px 8px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.tab-btn:hover { color: var(--paper-50); }
+
+.tab-btn[aria-selected="true"] {
+    background: var(--paper-100);
+    color: var(--ink-on-paper);
+    border-color: var(--paper-100);
+    font-weight: 500;
+}
+
+.tabs-loading {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: #9aa0a8;
+    padding: 9px 4px;
+}
+
+.intake-form {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    padding-top: 18px;
+    flex-wrap: wrap;
+}
+
+.intake-field {
+    flex: 1;
+    min-width: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.intake-field label {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-on-paper-dim);
+}
+
+.intake-field input {
+    background: var(--paper-50);
+    border: 1px solid #cabf9c;
+    border-radius: 2px;
+    padding: 11px 12px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--ink-on-paper);
+}
+
+.intake-field input::placeholder { color: #a89d7d; }
+
+#submit-btn {
+    background: var(--ink-950);
+    color: var(--paper-50);
+    border: none;
+    border-radius: 2px;
+    padding: 12px 22px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+#submit-btn:hover { background: var(--ink-900); }
+#submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.status-message {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--ink-on-paper-dim);
+    min-height: 1.2em;
+    margin: 14px 0 0;
+}
+
+.status-message.error { color: var(--stamp-error); }
+
+/* =========================================================================
+   RESULTS — mỗi connector là 1 "hồ sơ" giấy riêng
+   ========================================================================= */
+
+.results {
+    margin-top: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.file-card {
+    background: var(--paper-100);
+    border-radius: var(--radius-card);
+    color: var(--ink-on-paper);
+    overflow: hidden;
+    animation: card-settle 0.22s ease-out;
+}
+
+@keyframes card-settle {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.file-card-tab {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 22px 12px;
+    border-bottom: 1px dashed #c3b992;
+}
+
+.file-card-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0;
+}
+
+.file-card-meta {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--ink-on-paper-dim);
+    margin-top: 4px;
+}
+
+.cache-note { color: var(--brass-dim); margin-left: 6px; }
+
+/* Con dấu trạng thái */
+.stamp {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border: 1.5px solid currentColor;
+    border-radius: 3px;
+    transform: rotate(-3deg);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.stamp--ok { color: var(--stamp-ok); }
+.stamp--error { color: var(--stamp-error); }
+.stamp--pending { color: var(--stamp-pending); }
+
+.file-card-body { padding: 6px 22px 18px; }
+
+.data-row {
+    display: flex;
+    gap: 16px;
+    padding: 7px 0;
+    border-bottom: 1px solid #ddd3b5;
+    font-family: var(--font-mono);
+    font-size: 13px;
+}
+
+.data-row:last-child { border-bottom: none; }
+
+.data-row dt {
+    flex: 0 0 34%;
+    color: var(--ink-on-paper-dim);
+    word-break: break-word;
+}
+
+.data-row dd {
+    margin: 0;
+    flex: 1;
+    word-break: break-word;
+}
+
+.file-card-note {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--ink-on-paper-dim);
+    padding: 4px 0;
+}
+
+.file-card-note.error-text { color: var(--stamp-error); }
+
+/* =========================================================================
+   EMPTY STATE
+   ========================================================================= */
+
+.empty-state {
+    text-align: left;
+    padding: 40px 4px;
+    color: #7d8189;
+    display: none; /* app.js bật/tắt bằng class .visible */
+}
+
+.empty-state.visible { display: block; }
+
+.empty-state p { margin: 0 0 4px; font-size: 14.5px; }
+
+.empty-state-sub { color: #565b62; font-size: 13px; }
+
+/* =========================================================================
+   RESPONSIVE
+   ========================================================================= */
+
+@media (max-width: 520px) {
+    .desk { padding: 32px 16px 64px; }
+    .masthead { flex-direction: column; align-items: flex-start; }
+    .masthead-ref { text-align: left; }
+    .intake { padding: 0 16px 18px; }
+    .file-card-tab, .file-card-body { padding-left: 16px; padding-right: 16px; }
+    .data-row { flex-direction: column; gap: 2px; }
+    .data-row dt { flex: none; }
+}
