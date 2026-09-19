@@ -17,6 +17,7 @@ class TargetType(str, Enum):
     IP = "ip"
     USERNAME = "username"
     EMAIL = "email"
+    PHONE = "phone"
 
 
 @dataclass

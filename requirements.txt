@@ -3,3 +3,4 @@ python-whois
 dnspython
 requests
 gunicorn
+phonenumbers

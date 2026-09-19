@@ -10,6 +10,7 @@ const PLACEHOLDER_BY_CATEGORY = {
     ip: "8.8.8.8",
     username: "octocat",
     email: "name@example.com",
+    phone: "+849xxxxxxxx",
 };
 
 // Nhãn hiển thị trên "con dấu" theo từng status connector trả về.

@@ -10,4 +10,4 @@ from . import domain_whois     # noqa: F401
 from . import domain_dns       # noqa: F401
 from . import ip_geolocation   # noqa: F401
 from . import domain_crtsh
-
+from . import phone_metadata
